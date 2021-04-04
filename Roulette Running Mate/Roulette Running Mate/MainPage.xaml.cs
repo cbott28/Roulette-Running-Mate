@@ -25,6 +25,7 @@ namespace Roulette_Running_Mate
             BlackBtn.IsEnabled = false;
 
             List<string> availableUnits = new List<string>();
+            availableUnits.Add("0.50");
 
             for (int i = 1; i <= 100; i++)
             {
@@ -258,7 +259,7 @@ namespace Roulette_Running_Mate
             if (_shoe.LastBetAmount > 0m)
                 NextBetLabel.Text = string.Format("Place {0} on {1}", _shoe.LastBetAmount.ToString("C"), _shoe.LastOutcomeChoice.ToString());
             else
-                NextBetLabel.Text = "Ignore next hand";
+                NextBetLabel.Text = "Ignore next spin ";
         }
     }
 }
