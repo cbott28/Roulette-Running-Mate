@@ -187,29 +187,22 @@ namespace Roulette_Running_Mate
         private Outcome getNextOutcome(Result result)
         {
             if (_shoe.Hands.Count() == 2)
-                return _shoe.Hands.First() == Outcome.Black ? Outcome.Red : Outcome.Black;
+                return _shoe.Hands.First();
             else if (_shoe.Hands.Take(2).Distinct().Count() == 1)
             {
-                if (_shoe.Hands.Count() == 3)
+                if (_shoe.Hands.Count() <= 4 || _shoe.IsInContinuationPattern)
                     return _shoe.LastOutcomeChoice;
-                else if (!_shoe.IsInContinuationPattern)
-                    return _shoe.Hands.First();
                 else if (_shoe.Hands.Count() % 2 == 0)
                     return (_shoe.LastOutcomeChoice == Outcome.Black) ? Outcome.Red : Outcome.Black;
                 else
-                    return (_shoe.LastOutcomeChoice == Outcome.Black) ? Outcome.Black : Outcome.Red;
+                    return _shoe.LastOutcomeChoice;
             }
             else
             {
-                if (_shoe.Hands.Count() == 3 ||
-                    (!_shoe.IsInContinuationPattern && _shoe.Hands.Count >= 5))
+                if (_shoe.IsInContinuationPattern || _shoe.Hands.Count() <= 4)
                     return (_shoe.LastOutcomeChoice == Outcome.Black) ? Outcome.Red : Outcome.Black;
-                else if (!_shoe.IsInContinuationPattern && _shoe.Hands.Count() == 4)
-                {
-                    return _shoe.LastOutcomeChoice;
-                }
-                else if (_shoe.Hands.Count() % 3 != 0)
-                    return (_shoe.Hands.First() == Outcome.Black) ? Outcome.Red : Outcome.Black;
+                else if (_shoe.Hands.Count() % 3 == 0)
+                    return (_shoe.LastOutcomeChoice == Outcome.Black) ? Outcome.Black : Outcome.Red;
                 else
                     return (_shoe.LastOutcomeChoice == Outcome.Black) ? Outcome.Red : Outcome.Black;
             }
