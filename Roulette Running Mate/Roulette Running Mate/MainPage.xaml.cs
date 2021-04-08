@@ -136,7 +136,8 @@ namespace Roulette_Running_Mate
                     _shoe = new Shoe();
                 }
                 else if ((_shoe.IsInContinuationPattern && result == Result.Loss) ||
-                         (_shoe.IsInLossRecoveryPattern && _shoe.Hands.Count() >= 5 && result == Result.Loss))
+                         (_shoe.IsInLossRecoveryPattern && _shoe.Hands.Count() >= 5 && result == Result.Loss) ||
+                         (_shoe.Hands.Count() == 4 && result == Result.Win && !_shoe.IsInContinuationPattern))
                 {
                     _shoe.Hands.Clear();
                     _shoe.Hands.Add(outcome);
@@ -188,7 +189,7 @@ namespace Roulette_Running_Mate
         {
             if (_shoe.Hands.Count() == 2)
                 return _shoe.Hands.First();
-            else if (_shoe.Hands.Take(2).Distinct().Count() == 1)
+            else if (_shoe.Hands.Take(2).Distinct().Count( ) == 1)
             {
                 if (_shoe.Hands.Count() <= 4 || _shoe.IsInContinuationPattern)
                     return _shoe.LastOutcomeChoice;
